@@ -1,0 +1,5 @@
+* fat binary
+** what purpose fat binary server?
+** what is fat binary? / fat binary strcture
+** how mac loads fit banaries
+*** mach-o

@@ -1,0 +1,4 @@
+common linker issues such as 
+- undefined reference
+- multiple declarations
+- library not found
