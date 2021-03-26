@@ -1,5 +1,43 @@
-* fat binary
-** what purpose fat binary server?
-** what is fat binary? / fat binary strcture
-** how mac loads fit banaries
-*** mach-o
+* толстые бинари
+** для чего нужны толстые бинари?
+Дла того, чтобы была возможность выполнить один и тот же бинарь на компьютерах с разными архитектурами.
+*** что такое разные архитектуры?
+
+** что такое толстые бинари / структура толстого бинаря
+Толстый бинарь это файл, который можно представить себе так:
+#+begin_src swift
+struct FatBinary {
+  let header: FatHeader
+  let archs: ArchHeader
+  let objects: [Data]
+}
+
+struct FatHeader {
+  let magic = "cafebabe"
+  let numberOfArchs: Int
+}
+
+struct ArchHeader {
+  let cpuType
+  let offset
+  let size
+  let align
+}
+
+#+end_src
+
+** линковка с толстыми бинарями
+Кажется что нет ничего сложного в том, чтобы реализовать линковку только с нужной архитектурой
+
+** как запускаются толстые бинари
+- ос смотрит на заголовок
+- видит там cafebabe
+- дальше видит количество архитектур
+- декодит столько-то ArchHeader-ов
+- находит ArchHeader со своей архитектурой
+- находит соответствующий объектник
+
+#+BEGIN_QUOTE
+думаю что линкер работает схоже
+#+END_QUOTE
+
